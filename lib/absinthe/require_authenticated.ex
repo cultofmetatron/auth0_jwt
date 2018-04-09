@@ -12,7 +12,7 @@ defmodule Auth0Jwt.Absinthe.RequireAuthenicated do
       %{ login_status: :unauthenticated } ->
         IO.inspect("error happens after this")
         res = Absinthe.Resolution.put_result(resolution, { :error, "unauthenticated" })
-        IO.inspect(res)
+        #IO.inspect(res)
         res
       %{ error: error } ->
         resolution |> Absinthe.Resolution.put_result({ :error, error })
