@@ -10,8 +10,13 @@ defmodule Auth0Jwt.Absinthe.GetProfile do
   @behaviour Absinthe.Middleware
   alias Absinthe.Resolution
 
+  #if the resolution is already resolved, do nothing
+  def call(%Absinthe.Resolution{ state: :resolved }=resolution, _) do
+    resolution
+  end
 
   def call(resolution, _) do
+    IO.inspect(resolution)
     case get_id(resolution) do
       {:ok, id} -> case fetch_profile(id) do
         {:ok, profile} ->
