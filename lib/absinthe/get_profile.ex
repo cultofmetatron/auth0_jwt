@@ -19,16 +19,10 @@ defmodule Auth0Jwt.Absinthe.GetProfile do
           new_context = Map.put(context, :profile, profile)
           Map.put(resolution, :context, new_context)
         {:error, error, message} ->
-          Resolution.put_result(:error, %{
-            error: error,
-            message: message
-          })
+          resolution |> Resolution.put_result({:error, message})
       end
       {:error, error} ->
-        Resolution.put_result(:error, %{
-          error: error,
-          message: "invalid claims, could not retrieve profile",
-        })
+        resolution |> Resolution.put_result({:error, "invalid claims, could not retrieve profile"})
     end
   end
 
